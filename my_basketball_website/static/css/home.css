@@ -1,0 +1,63 @@
+
+body {
+    background-color: #033500;
+}
+
+.carousel-item {
+    height: 70vh; /* Make the carousel items take up the full viewport height */
+}
+
+.carousel-item img {
+    object-fit: cover; /* Ensure the images cover the entire carousel item */
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption {
+    width: 80%; /* Increase the width as needed */
+    left: 10%; /* Center the caption */
+    right: 10%;
+    text-align: center;
+    bottom :90px;
+    position:absolute;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.search-widgets .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-widgets .input-group .form-control {
+    border-right: none; /* Remove right border of the input */
+    width : 400px;
+}
+
+.search-widgets .input-group .search-icon {
+    cursor: pointer;
+    background-color: #fff; /* Adjust background color as needed */
+    border: 1px solid #ccc; /* Adjust border color as needed */
+    border-left: none; /* Remove left border to avoid double border */
+    padding: 2px;
+    display: flex;
+    margin: 10px;
+
+    align-items: center;
+    justify-content: center;
+}
+.search-icon{width:30px;
+            height: 37.4px;}
+.search-widgets .input-group  .search-icon i {
+    font-size: 16px; /* Adjust icon size as needed */
+    color: #333; /* Adjust icon color as needed */
+}
+
+

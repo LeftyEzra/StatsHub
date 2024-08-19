@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--<td><img src="{{player.player_image.url}}" alt="..." /></td>-->
+{% block content %}
+
+
+<style>
+#table1 {
+        width:20px;
+
+}
+</style>
+
+
+
+
+<table id="table1" class="table table-striped" style="background-color : green" border="1">
+  <thead>
+    <tr align="center">
+      <th scope="col">#</th>
+      <th scope="col"> </th>
+      <th scope="col">PLAYERS</th>
+      <th scope="col">MIN</th>
+      <th scope="col">PTS</th>
+      <th scope="col">FGA</th>
+      <th scope="col">FGM</th>
+      <th scope="col">FG%</th>
+      <th scope="col">3PA</th>
+      <th scope="col">3PM</th>
+      <th scope="col">3P%</th>
+      <th scope="col">2PA</th>
+      <th scope="col">2PM</th>
+      <th scope="col">2P%</th>
+      <th scope="col">FTA</th>
+      <th scope="col">FTM</th>
+      <th scope="col">FT%</th>
+      <th scope="col">OREB</th>
+      <th scope="col">DREB</th>
+      <th scope="col">TREB</th>
+      <th scope="col">BLK</th>
+      <th scope="col">AST</th>
+      <th scope="col">STL</th>
+      <th scope="col">TOV</th>
+      <th scope="col">PF</th>
+      <th scope="col">+/-</th>
+      <th scope="col">EFF</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for player in players %}
+      <tr align="center">
+      <th scope="row">{{ player.jersey_numbers}}</th>
+      <td> </td>
+      <td>{{ player.player_name }}</td>
+      <td>{{ player.minutes }}</td>
+      <td>{{ player.points }}</td>
+      <td>{{ player.field_goal_attempts }}</td>
+      <td>{{ player.field_goal_made }}</td>
+      <td>{{ player.fg_percent }}</td>
+      <td>{{ player.point_3_attempts }}</td>
+      <td>{{ player.point_3_made }}</td>
+      <td>{{ player.point_3_percent }}</td>
+      <td>{{ player.point_2_attempts }}</td>
+      <td>{{ player.point_2_made }}</td>
+      <td>{{ player.point_2_percent }}</td>
+      <td>{{ player.ft_attempts }}</td>
+      <td>{{ player.ft_made }}</td>
+      <td>{{ player.ft_percent }}</td>
+      <td>{{ player.offensive_rebs }}</td>
+      <td>{{ player.defensive_rebs }}</td>
+      <td>{{ player.total_rebounds }}</td>
+      <td>{{ player.blocks }}</td>
+      <td>{{ player.assists }}</td>
+      <td>{{ player.steals }}</td>
+      <td>{{ player.turnovers }}</td>
+      <td>{{ player.personal_fouls }}</td>
+      <td>{{ player.plus_minus }}</td>
+      <td>{{ player.efficiency }}</td>
+    </tr>
+
+  {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% endblock %}
