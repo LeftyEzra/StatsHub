@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+{% block content %}
+
+<style>
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #2F3E46; /* Darker background color */
+    margin: 0;
+    padding: 0;
+}
+
+.team-roster {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #354F52; /* Darker roster background */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.roster-title {
+    text-align: center;
+    font-size: 2em;
+    color: #CAD2C5; /* Light text color */
+    margin-bottom: 20px;
+}
+
+.roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.roster-item {
+    background-color: #52796F; /* Darker card background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.roster-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.roster-link:hover {
+    text-decoration: none;
+}
+
+
+.roster-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.roster-content {
+    text-align: center;
+    padding: 10px;
+}
+
+.roster-image {
+    width: 100%;
+    height: auto;
+    border-bottom: 3px solid #84A98C; /* Darker accent color */
+}
+
+.roster-info {
+    padding-top: 8px;
+}
+
+.roster-name {
+    font-size: 1.1em;
+    margin: 8px 0 5px;
+    color: #CAD2C5; /* Light text color */
+}
+
+.roster-position {
+    font-size: 0.8em;
+    color: #B2BEB5; /* Soft complementary text color */
+}
+
+
+
+</style>
+
+<div class="team-roster">
+    <h2 class="roster-title">Team Roster</h2>
+    <div class="roster-grid">
+         {% for player in players %}
+            <div class="roster-item">
+                <a href="{% url 'player-id' player.pk %}" class="roster-link">
+                    <div class="roster-content">
+                        <img class="roster-image" src="{{ player.player_image.url }}" alt="{{ player.player_name }}">
+                        <div class="roster-info">
+                            <h3 class="roster-name">{{ player.player_name }}</h3>
+                            <p class="roster-position">{{ player.position }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+         {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(to right, #0066ff, #cc00ff);
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .scroll-container-organizer-table, .scroll-container-competition-table {
+        display: block;
+        overflow-x: auto;
+        padding: 10px;
+        border-radius: 5px;
+        max-width: 100%;
+    }
+
+    .organizer-table-container, .competition-table-container {
+        background-color: transparent;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px; /* Prevent the table from shrinking */
+    }
+
+    th, td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        color: white; /* Ensure consistent text color */
+        text-align: center;
+        white-space: nowrap; /* Prevent text wrapping */
+        height: 40px;
+    }
+
+    th {
+        background-color: #04AA6D;
+    }
+
+    tbody tr {
+        background: linear-gradient(to bottom, #00c6ff, #0072ff);
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .btn-container a {
+        margin: 0;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .scroll-container-competition-table {
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 6px 8px; /* Adjust padding for smaller screens */
+            font-size: 12px; /* Adjust font size for smaller screens */
+            height: 40px;
+        }
+
+        .btn-container {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        .btn-container a {
+            width: 80px;
+
+         }
+
+        .container.my-5 {
+            padding: 5px;
+        }
+    }
+
+
+
+#fixedCol{
+        position: sticky;
+        left: -10px;
+        z-index: 1;
+
+}
+</style>
+
+
+<div class="container mt-5" id="organizerTable" style="padding: 10px;">
+    <div class="organizer-table-container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="h4-summary" style="text-align: flex-start; margin: 10px; text-shadow: 3px 3px 7px black; text-decoration-color">
+                    <strong style="color:#c3f719; font-size: 30px;">Organizers</strong>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-container-organizer-table" id="organizerSummaryTable">
+        <table class="table table-sm" style="width:100%">
+            <thead style="background-color:#ef6a0b;">
+                <tr>
+                    <th>Logo</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for organizer in organizers %}
+                    <tr>
+                        <td><img src="{{ organizer.organizer_logo.url }}" alt="{{ organizer.name }}" style="border-radius: 50%;" width="40" height="35"></td>
+                        <td ><a style="color: black;text-decoration: none;" href="{% url 'organizer-id' organizer.pk %}">{{ organizer.name }}</a></td>
+                        <td>{{ organizer.contact_info }}</td>
+                        <td>
+                            <div class="btn-container">
+                                <a class="btn btn-primary" href="{% url 'update-organizer' organizer.pk %}">Update</a>
+                                <a class="btn btn-danger" href="{% url 'delete-organizer' organizer.pk %}" onclick="return confirmDelete();">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container mt-5" id="competitionTable" style="padding: 10px;">
+    <div class="competition-table-container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="h4-summary" style="text-align: flex-start; margin: 10px; text-shadow: 3px 3px 7px black; text-decoration-color">
+                    <strong style="color:#c3f719; font-size: 30px;">Competitions</strong>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-container-competition-table" id="competitionSummaryTable">
+        <table class="table table-sm" style="width:100%">
+            <thead style="background-color:#ef6a0b;">
+                <tr>
+                    <th id="fixedCol" style="background-color:#ef6a0b;">Name</th>
+                    <th>Host</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Teams</th>
+                    <th>Location</th>
+                    <th>Year</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for competition in competitions %}
+                    <tr>
+                        <td id="fixedCol" style="background-color: grey;">
+                             <a style="color: white;text-decoration: none;" href="{% url 'organizer-id' competition.pk %}">
+                            {{ competition.name }}
+                             </a>
+                        </td>
+                        <td>
+                            {% for organizer in competition.organizers.all %}
+                                <a style="color: black;text-decoration: none;" href="{% url 'organizer-id' organizer.pk %}">
+                                    {{ organizer.name }}
+                                </a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ competition.start_date }}</td>
+                        <td>{{ competition.end_date }}</td>
+                        <td>
+                            {% for team in competition.teams.all %}
+                                {{ team.team_name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ competition.location }}</td>
+                        <td>{{ competition.year }}</td>
+                        <td>{{ competition.description }}</td>
+                        <td>
+                            <div class="btn-container">
+                                <a class="btn btn-primary" href="{% url 'update-competition' competition.pk %}">Update</a>
+                                <a class="btn btn-danger" href="{% url 'delete-competition' competition.pk %}" onclick="return confirmDelete();">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        return confirm("Are you certain you want to delete this organizer?");
+    }
+</script>
+
+{% endblock %}
+
+
+

@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'B_Ball',
+    'statshub_admin',
+    'rest_framework',
+    'API',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'B_Ball.context_processors.organizers_context',
             ],
         },
     },
@@ -79,7 +83,7 @@ WSGI_APPLICATION = 'my_basketball_website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'basketball stats1',
+        'NAME': 'StatsHub',
         'USER': 'admin' ,
         'PASSWORD': '1111',
 
@@ -125,6 +129,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static/'] # Add a static directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 

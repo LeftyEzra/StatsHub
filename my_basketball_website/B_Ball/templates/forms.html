@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+.form-container {
+            max-width: 600px;
+
+            margin: 0 auto;
+            padding: 20px;
+            background-color: purple;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+</style>
+
+<body>
+
+
+<h2 style="color:white;">ID: {{ user.username }}</h2>
+
+{% if user.is_superuser %}
+    <div class="container mt-5">
+        <div class="form-container">
+            <h2 class="text-center">Team Form</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% else %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <h1> {{ "Access denied!!! You must be an admin to view this page...." | title  }} </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <a href="{% url 'login-user' %}">Login Here</a>
+{% endif %}
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form action="" method="POST" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center">
+                        <input type="submit" value="Update" class="btn btn-success">
+                    </div>
+                </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+.form-container {
+            max-width: 600px;
+
+            margin: 0 auto;
+            padding: 20px;
+            background-color: purple;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+</style>
+
+<body>
+
+
+<h2 style="color:white;">ID: {{ user.username }}</h2>
+
+
+    <div class="container mt-5">
+        <div class="form-container">
+            <h2 class="text-center">Teamssssss Form</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

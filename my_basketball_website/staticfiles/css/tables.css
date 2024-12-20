@@ -1,0 +1,27 @@
+#table_1 {
+            width: 1000px;
+            height: 400;
+            background-color: grey;
+            overflow: auto;
+        }
+
+#table1 {
+                width:100px;
+                font-size: 10px;
+}
+
+tr:hover {background-color: coral;}
+
+th {
+     background-color: green;
+     color: black;
+}
+
+
+#table1 th, #table1 td {
+            font-size: 10px;
+}
+
+
+
+

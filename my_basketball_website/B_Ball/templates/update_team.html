@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c3e50;  /* Mild dark background color */
+    margin: 0;
+    padding: 0;
+}
+
+.custom-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ecf0f1;  /* Warm off-white for the container */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.custom-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-title {
+    font-size: 2em;
+    color: #c0392b;  /* Warm dark red */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form-container {
+    animation: glow 1s infinite alternate;
+    border-radius: 10px;
+}
+
+
+.custom-form-container p {
+    margin: 10px 0;  /* Adjust the margin as needed */
+
+    color: #8e44ad;  /* Warm purple for consistency */
+}
+
+
+
+
+
+
+.custom-form-section {
+    margin-bottom: 20px;
+}
+
+.custom-form-section label,
+.custom-player-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #8e44ad;  /* Warm purple for labels */
+    padding: 5px 10px;  /* Ensure padding around labels */
+}
+
+.custom-form-section input,
+.custom-player-form input,
+.custom-form-section select,
+.custom-player-form select,
+.custom-form-section textarea,
+.custom-player-form textarea {
+    width: calc(100% - 40px);  /* Added margin for input field */
+    padding: 10px;
+    margin: 5px 10px;  /* Ensure margin for input fields */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #dfe6e9;  /* Soft warm grey */
+}
+
+.custom-player-form {
+    margin-bottom: 10px;
+}
+
+
+
+
+.custom-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.custom-btn-submit {
+    padding: 10px 20px;
+    background-color: #16a085;  /* Warm teal */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-btn-submit:hover {
+    background-color: #148f77;
+}
+
+.custom-alert {
+    text-align: center;
+    background-color: #f39c12;  /* Warm yellow-orange */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.custom-alert-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.custom-btn-login {
+    padding: 10px 20px;
+    background-color: #2980b9;  /* Warm blue */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.custom-btn-login:hover {
+    background-color: #2471a3;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px #e67e22; }
+    to { box-shadow: 0 0 20px #e67e22; }
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<center>
+    <h1 class="display-4 fw-bolder custom-title">Update Team</h1>
+</center>
+
+<div class="custom-container mt-5">
+    <div class="custom-form-container">
+        <h2 class="text-center">Team Form</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+             <div class="custom-player-form">
+                    {{ form.as_p }}
+             </div>
+
+            <h2 class="text-center">Player Formset</h2>
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="custom-player-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+
+            <div class="text-center">
+                <input type="submit" value="Update" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Example</title>
+    <!-- Include jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+   {% extends "base.html" %}
+   {% load static %}
+
+{% block content %}
+<style>
+
+
+
+        #playerSection {
+            display: none; /* Ensure it's hidden initially */
+            background-color: orange;
+            width: 1200px;
+            overflow-x: auto;
+            padding: 10px;
+            margin: auto;
+        }
+
+          #standingSection {
+
+            background-color: grey;
+            width: 1000px;
+            overflow-x: auto;
+            padding: 10px;
+            margin: auto;
+        }
+</style>
+
+
+<!-- Navigation Links -->
+<ul class="nav">
+    <li><a class="nav-link" id="playerList" href="#">Player List</a></li>
+</ul>
+
+<!-- Player Section (centered) -->
+<div id="playerSection">
+    <table class="table table-sm" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>PLAYER NAME</th>
+                <th>TEAM</th>
+                <th>AGE</th>
+                <th>HEIGHT</th>
+                <th>NATIONALITY</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Sample Player</td><td>Team A</td><td>25</td><td>6'2"</td><td>USA</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    console.log('Document is ready');
+
+    function resetTables() {
+        console.log('Resetting tables - hiding all sections');
+        $("#playerSection").hide();
+        console.log('Sections hidden:');
+        console.log('playerSection: ' + $("#playerSection").css('display'));
+    }
+
+    // Initially hide all sections
+    resetTables();
+
+    $(".nav-link").click(function(event) {
+        event.preventDefault();
+        console.log('Nav link clicked:', $(this).attr('id'));
+
+        $(".nav-link").removeClass("active");
+        $(this).addClass("active");
+
+        resetTables();
+
+        if ($(this).attr('id') === 'playerList') {
+            console.log('Player List link clicked');
+            $("#playerSection").fadeToggle("slow");
+        }
+    });
+
+    // Initial display: hiding all sections including playerSection
+    resetTables();
+    console.log('Initial sections hidden');
+});
+</script>
+
+
+
+<div id="standingSection" class="standing-div" style="width: 100%;">
+    <h1 style="color:white;">{{ competition.name }} Standings</h1>
+    <table class="table table-sm" style="width:100%">
+        <thead>
+            <tr>
+                <th style="color:white;">Rank</th>
+                <th style="color:white;">Team</th>
+                <th style="color:white;">Games Played</th>
+                <th style="color:white;">Wins</th>
+                <th style="color:white;">Loss</th>
+                <th style="color:white;">W/L %</th>
+                <th style="color:white;">PTS +</th>
+                <th style="color:white;">PTS -</th>
+                <th style="color:white;">PTS +/-</th>
+                <th style="color:white;">Pts+/Game</th>
+                <th style="color:white;">Pts-/Game</th>
+                <th style="color:white;">Pts/Game +/-</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for standing in standings %}
+            <tr>
+                <td style="color:white;">{{ forloop.counter }}</td>
+                <td style="color:white;">{{ standing.team }}</td>
+                <td style="color:white;">{{ standing.games_played }}</td>
+                <td style="color:white;">{{ standing.games_won }}</td>
+                <td style="color:white;">{{ standing.games_lost }}</td>
+                <td style="color:white;">{{ standing.game_win_loss_percent|floatformat:1 }}</td>
+                <td style="color:white;">{{ standing.points_scored }}</td>
+                <td style="color:white;">{{ standing.points_conceded }}</td>
+                <td style="color:white;">{{ standing.point_diff }}</td>
+                <td style="color:white;">{{ standing.points_scored_per_game|floatformat:1 }}</td>
+                <td style="color:white;">{{ standing.points_conceded_per_game|floatformat:1 }}</td>
+                <td style="color:white;">{{ standing.point_difference_per_game|floatformat:1 }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+{% for team in all_teams %}
+    <p style="color:white;">{{team.team_name}}-{{team.team_abbreviation}}</p>
+{% endfor%}
+
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'css/game_summary.css' %}" rel="stylesheet" />
+<style>
+.background-container{
+            background-image: url("{% static 'img/ball_for_sale.png' %}");
+
+            height: 50vh; /* 50% of the viewport height */
+
+            background-size: cover; /* Ensures the background image covers the entire div */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
+            background-attachment: fixed; /* Keeps the background image fixed in place */
+            display: flex; /* Enables Flexbox */
+            justify-content: center; /* Centers items horizontally */
+            align-items: center; /* Centers items vertically */
+            gap: 50px; /* Adds space between the divs */
+    }
+
+
+.team-name {
+    text-align: center;
+    margin-top: 5px; /* Adjust as needed */
+    color: yellow;
+}
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: grey;
+    border-radius: 10px;
+}
+
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.table-container-scores{
+    width:50%
+
+}
+
+/*  Table Quarterly Scores */
+.table-container-scores {
+    background-color: rgb(216, 214, 214);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 auto; /* Center horizontally */
+    width: 50%; /* Adjust the width as needed */
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.flex-container img {
+    margin-right: 10px; /* Adjust the spacing as needed */
+}
+
+.align-Teams {
+    text-align: left;
+}
+
+
+
+
+
+/* card containers */
+
+.game-leaders-container {
+
+  padding: 10px;
+  max-width: 75%;
+
+}
+.card {
+  width: 100%; /* Set your desired width */
+  height: auto; /* Set your desired height */
+}
+
+
+/* fixed columns */
+
+#backgroundContainer{
+        position: sticky;
+        top: -60px;
+        z-index: 1;
+
+}
+#fixedNAv{
+        position: sticky;
+        top: -10px;
+        z-index: 1;
+
+}
+
+#backgroundContainer + #fixedNav  {
+    top: 170px; /* Adjust based on the width of the first fixed column */
+}
+
+
+/* fixed columns end*/
+
+
+
+</style>
+
+<div id="backgroundContainer" class="background-container">
+             <div id="teamLogo" class="team-logo-container">
+                <ul class="nav justify-content-right">
+                    <li class="nav-item">
+                       <a href="{% url 'teams-id' game.home_team.pk %}"> <img class="card-img-top team-logo" style="height: auto; width: 150px; border-radius: 10px;" src="{{ game.home_team.team_logo.url }}" alt="{{ team_details.team_name }}" /> </a>
+                         <a href="{% url 'teams-id' game.home_team.pk %}"><div class="team-name"><h3>{{ game.home_team }}</h3></div> </a>
+                    </li>
+                </ul><br>
+             </div>
+
+              <div class="wrapper" >
+                    <div class="team-logo-container" style="background-color: white; width: 200px;">
+                        <div class="child-div"><h1>{{ game.home_team_scores }}</h1></div>
+                        <h1><strong>-</strong></h1>
+                        <div class="child-div"><h1>{{ game.away_team_scores }}</h1></div>
+                    </div>
+                    <div class="final-scores" ><h3 style="color:black; ">Final</h3></div>
+              </div>
+
+                <div id="teamLogo1" class="team-logo-container">
+                    <ul class="nav justify-content-right">
+                        <li class="nav-item">
+                            <a href="{% url 'teams-id' game.away_team.pk %}"><img class="card-img-top team-logo" style="height: auto; width: 150px; border-radius: 10px;" src="{{ game.away_team.team_logo.url }}" alt="{{ team_details.team_name }}" /></a>
+                             <a href="{% url 'teams-id' game.away_team.pk %}"><div class="team-name"><h3>{{ game.away_team }}</h3></div></a>
+                        </li>
+                    </ul>
+                </div>
+</div>
+
+
+<!-- Nav Container Start -->
+<div id="fixedNav" class="d-flex justify-content-center align-items-center" style="min-height: 5vh;">
+<div class="nav-container" style="background-color:transparent;">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a id="overview"  class="nav-link active" aria-current="page" href="">Summary</a>
+        </li>
+        <li class="nav-item">
+            <a id="roster" class="nav-link" href="{% url 'table' game.pk %}">Boxscore</a>
+        </li>
+        <li id="game-schedule" class="nav-item">
+            <a id="games" class="nav-link" href="">Game Stats</a>
+        </li>
+        <li class="nav-item">
+            <a  id="statistics" class="nav-link" href="#">Shot Chat</a>
+        </li>
+        <li class="nav-item">
+            <a id="photos"  class="nav-link" href="#">Photos</a>
+        </li>
+        <li id="videos" class="nav-item">
+            <a class="nav-link" href="#">Videos</a>
+        </li>
+
+    </ul>
+</div>
+</div>
+<!-- Nav Container End -->
+
+
+
+<!-- Table To Hold Quarter Scores -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 30vh; min-width: 50vh;">
+<table class="table-container-scores table table-bordered" style="border-radius: 10px;">
+  <thead class="table" style="background-color:transparent;">
+     <tr align="center">
+       <th id="teams"  class="align-Teams" scope="col">Teams</th>
+       <th width="100" class="align-center" scope="col">Q1</th>
+       <th width="100" class="align-center" scope="col">Q2</th>
+       <th width="100" class="align-center" scope="col">Q3</th>
+       <th width="100" class="align-center" scope="col">Q4</th>
+       <th width="100" class="align-center" scope="col">Final</th>
+     </tr>
+  </thead>
+  <tbody>
+
+     <tr align="center">
+       <td id="teams" class="align-center" scope="col">
+            <div class="flex-container">
+                <img src="{{ game.home_team.team_logo.url }}" style="border-radius: 5%;" width="30" height="20">
+                <span>{{ game.home_team }}</span>
+            </div>
+       </td>
+
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.home_team_quarter_1 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.home_team_quarter_2 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.home_team_quarter_3 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.home_team_quarter_4 }}</td>
+       <td width="100" class="align-center" scope="col">{{ game.home_team_scores }}</td>
+     </tr>
+
+     <tr align="center">
+
+       <td id="teams" class="align-center" scope="col">
+            <div class="flex-container">
+                <img src="{{ game.away_team.team_logo.url }}" style="border-radius: 5%;" width="30" height="20">
+                <span>{{ game.away_team }}</span>
+            </div>
+       </td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.away_team_quarter_1 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.away_team_quarter_2 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.away_team_quarter_3 }}</td>
+       <td width="100" class="align-center" scope="col">{{ quarterly_scores.away_team_quarter_4 }}</td>
+       <td width="100" class="align-center" scope="col">{{ game.away_team_scores }}</td>
+     </tr>
+
+  </tbody>
+
+</table>
+</div>
+
+<!-- Table End -->
+
+<br>
+
+<!-- Game leaders -->
+
+
+
+{% endblock %}
+
+

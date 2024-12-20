@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+   <link href="{% static 'css/list_all_teams.css' %}" rel="stylesheet" />
+{% block content %}
+<style>
+.carousel-item {
+        height: 40vh;
+}
+</style>
+
+
+
+<header class="bg-success" style="background-size: cover; background-position: center; color: white;">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{% static 'img/IMG_5005.JPG' %}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'img/IMG_5006.JPG' %}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'img/IMG_5008.JPG' %}" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'img/IMG_5009.JPG' %}" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'img/james.png' %}" alt="Third slide">
+            </div>
+            <div class="carousel-cap">
+                 <div class="card-body">
+
+                      <form method="POST" action="{% url 'search-teams-players' %}">
+                            {% csrf_token %}
+                            <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search"><br>
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+
+                  </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row g-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for team in teams %}
+            <div class="col mb-5">
+               <div class="card h-100" style="width: 250px; height: auto; justify-cont: space-evenly">
+                    <!-- Team image -->
+                    <img class="card-img-top" src="{{ team.team_logo.url }}" alt="{{ team.team_name }}" />
+                    <!-- Team details -->
+                    <div class="card-body p-4" style=" height: 50; text-align: center;">
+                        <div class="text-center ">
+                            <!-- Team name -->
+                            <h5 class="fw-bolder" style=" color: black;">{{ team.team_name }}</h5>
+                        </div>
+                    </div>
+                    <!-- Team actions -->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent ">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" href="{% url 'teams-id' team.pk %}">View Team</a>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="d-flex justify-content-center" style="width: 100%; height: 50px; margin-top: 10px;">
+                            <a href="{% url 'update-team' team.pk %}" class="btn btn-outline-primary btn-sm mx-1" style="margin-bottom: 10px;">Update Team</a>
+
+                            {% if user.is_superuser %}
+                            <a href="{% url 'delete-team' team.pk %}" onclick="return confirmDelete();" class="btn btn-outline-danger btn-sm mx-1" style="margin-bottom: 10px;">Delete Team</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+</header>
+
+
+
+<script>
+    function confirmDelete() {
+            return confirm("Are you certain you want to delete this team?");
+    }
+</script>
+{% endblock %}

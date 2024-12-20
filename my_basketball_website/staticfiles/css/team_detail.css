@@ -1,0 +1,287 @@
+:root {
+    --red: #ef233c;
+    --darkred: #c00424;
+    --platinum: #e5e5e5;
+    --black: #2b2d42;
+    --white: #fff;
+    --thumb: #edf2f4;
+}
+
+.card-container * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: 400px
+}
+
+.card-container {
+    font: 16px / 24px "Rubik", sans-serif;
+    color: var(--black);
+    background: var(--platinum);
+    margin: 50px 0;
+    height: 100px
+}
+
+.card-container .container {
+    max-width: 1400px;
+    padding: 0 15px;
+    margin: 0 auto;
+    height: 100px
+
+.card-container h2 {
+    font-size: 32px;
+    margin-bottom: 1em;
+}
+
+.card-container .cards {
+    display: flex;
+    padding: 25px 0px;
+    list-style: none;
+    overflow-x: scroll;
+    -ms-scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory;
+}
+
+.card-container .card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100%;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+    scroll-snap-align: start;
+    transition: all 0.2s;
+}
+
+.card-container .card:not(:last-child) {
+    margin-right: 10px;
+}
+
+.card-container .card:hover {
+    color: var(--white);
+    background: var(--red);
+}
+
+.card-container .card .card-title {
+    font-size: 20px;
+}
+
+.card-container .card .card-content {
+    margin: 20px 0;
+    max-width: 85%;
+}
+
+.card-container .card .card-link-wrapper {
+    margin-top: auto;
+}
+
+.card-container .card .card-link {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: var(--red);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.card-container .card:hover .card-link {
+    background: var(--darkred);
+}
+
+.card-container .cards::-webkit-scrollbar {
+    height: 12px;
+}
+
+.card-container .cards::-webkit-scrollbar-thumb,
+.card-container .cards::-webkit-scrollbar-track {
+    border-radius: 92px;
+}
+
+.card-container .cards::-webkit-scrollbar-thumb {
+    background: var(--darkred);
+}
+
+.card-container .cards::-webkit-scrollbar-track {
+    background: var(--thumb);
+}
+
+@media (min-width: 500px) {
+    .card-container .card {
+        flex-basis: calc(50% - 10px);
+    }
+
+    .card-container .card:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 700px) {
+    .card-container .card {
+        flex-basis: calc(calc(100% / 3) - 20px);
+    }
+
+    .card-container .card:not(:last-child) {
+        margin-right: 30px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .card-container .card {
+        flex-basis: calc(25% - 30px);
+    }
+
+    .card-container .card:not(:last-child) {
+        margin-right: 40px;
+    }
+}
+
+
+
+/* Score Container */
+.score-container #score-box {
+    margin: 0 auto;
+    padding: 5px;
+    background-color: rgb(170, 51, 23);
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px rgb(100, 51, 23);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the rows horizontally */
+}
+
+.score-container #score-row {
+    display: flex;
+    width: 100%; /* Ensure the row takes full width */
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    background-color: rgb(170, 51, 23);
+    justify-content: space-between; /* Ensure columns are spaced evenly */
+    align-items: center; /* Center items vertically */
+}
+
+.score-container .box1 {
+    flex: 1;
+    border: 5px;
+    min-width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(170, 51, 23);
+}
+
+.score-container .box3 {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(170, 51, 23);
+}
+
+.score-container .nav-link {
+    color: black;
+}
+
+/* Tables */
+.score-container .align-left {
+    text-align: left;
+}
+
+.score-container .align-right {
+    text-align: right;
+}
+
+.score-container #more {
+    width: 100px;
+}
+
+/* Table wrapper */
+.score-container .table-wrapper {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Table */
+.score-container .table {
+    margin: 0;
+    border-radius: 5px;
+}
+
+.score-container #PPG {
+    text-align: center;
+}
+
+.score-container .bottom-left {
+    position: absolute;
+    top: 125px;
+    left: 10px;
+}
+
+.score-container .bottom-right {
+    position: absolute;
+    top: 125px;
+    right: 10px;
+}
+
+
+/* Nav Container */
+.nav-container .nav {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-container .nav-item {
+    margin: 0 10px;
+}
+
+.nav-container .nav-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.nav-container .nav-link:hover {
+    color: var(--red);
+}
+
+
+.table-container {
+    border-radius: 10px;
+    padding: 0 20px; /* Add padding to the container */
+}
+
+.table-container .table-wrapper {
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: 1000px; /* Set a maximum width for the table */
+    margin: 0 auto; /* Center the table within the container */
+}
+
+.table-container .table {
+    width: 100%; /* Ensure the table takes full width within the wrapper */
+    border-radius: 5px;
+}
+
+.table-container .align-left {
+    text-align: left;
+}
+
+.table-container .align-right {
+    text-align: right;
+}
+
+.table-container #more {
+    width: 100px;
+}
+
+.table-container #PPG {
+    text-align: center;
+}
+
+
+

@@ -1,0 +1,41 @@
+.background-container {
+    height: 50vh; /* 50% of the viewport height */
+
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    background-attachment: fixed; /* Keeps the background image fixed in place */
+    display: flex; /* Enables Flexbox */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    gap: 40px; /* Adds space between the divs */
+}
+
+.team-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.child-div {
+    background-color: transparent; /* Example background color */
+    padding: 10px; /* Example padding */
+    margin: 5px; /* Example margin */
+    width: 43%; /* Adjust width to fit within the parent div */
+    display: flex; /* Enables Flexbox for the child div */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+
+    border-radius: 10px;
+}
+.child-div h1{
+            font-size: 60;
+}
+.team-name {
+    text-align: center;
+    margin-top: 10px; /* Adjust as needed */
+}
+
+a {
+    text-decoration: none;
+}

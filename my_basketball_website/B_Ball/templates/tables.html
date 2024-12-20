@@ -1,87 +1,448 @@
 {% extends 'base.html' %}
 {% load static %}
 <!--<td><img src="{{player.player_image.url}}" alt="..." /></td>-->
+
+ <link href="{% static 'css/tables.css' %}" rel="stylesheet" />
+
+
 {% block content %}
+
+<script src="{% static 'js/table.js' %}"></script>
+
+
 
 
 <style>
-#table1 {
-        width:20px;
+  body, html {
+            overflow-x: hidden; /* Prevents any horizontal overflow on the whole page */
+        }
+
+#table_1 {
+            width: auto;
+            height: auto;
+            background-color: #a9cfb1;
+            overflow: auto;
+            border-radius: 10px;
+            padding:10px;
+
+
+        }
+
+        #table1 {
+                width:90px;
+                font-size: 20px;
+                border-radius: 15px;
+                padding: 10px;
+                }
+
+
+
+        th {
+         background-color: green;
+            color: black;
+            }
+
+              }
+        #table1 th, #table1 td {
+            font-size: 20px;
+        }
+
+
+
+
+
+
+.fixed-col {
+    position: sticky;
+    left: -10px;
+    z-index: 1;
+}
+
+.fixed-col + .fixed-col {
+    left: 30px; /* Adjust based on the width of the first fixed column */
+}
+
+.fixed-col + .fixed-col + .fixed-col {
+    left: 50px; /* Adjust based on the combined width of the first and second fixed columns */
+}
+
+
+
+.team-name {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.team-name img {
+    margin-right: 10px; /* Adjust the spacing as needed */
 
 }
+
+/* Home Table */
+#legend_container {
+    width: 250px;
+    background-color: #e1e2b8;
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    height: 160px;
+    overflow-y: auto;
+    padding: 10px;
+
+
+}
+
+/* Table elements */
+
+
+
+.col-md-4{
+
+        align-items: center;
+        text-align: right;
+        justify-content: center;
+        margin-top: 10px;
+        height: 100%;
+}
+
+
+
+
+.dt-bold {
+        font-weight: bold;
+         font-size: 13px;
+         text-align: left;
+         padding-left: 10px;
+         color: black
+
+
+    }
+.dd-light {
+        font-weight: lighter;
+        font-size: 13px;
+    }
+
+.row {
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+    }
+.col-12 {
+        flex: 1;
+
+    }
+
+
+/* Table elements ends*/
+
+/* Away Table */
+#away_legend_container {
+    width: 250px;
+    background-color: #e1e2b8;
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    height: 160px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
 </style>
 
 
 
 
-<table id="table1" class="table table-striped" style="background-color : green" border="1">
-  <thead>
-    <tr align="center">
-      <th scope="col">#</th>
-      <th scope="col"> </th>
-      <th scope="col">PLAYERS</th>
-      <th scope="col">MIN</th>
-      <th scope="col">PTS</th>
-      <th scope="col">FGA</th>
-      <th scope="col">FGM</th>
-      <th scope="col">FG%</th>
-      <th scope="col">3PA</th>
-      <th scope="col">3PM</th>
-      <th scope="col">3P%</th>
-      <th scope="col">2PA</th>
-      <th scope="col">2PM</th>
-      <th scope="col">2P%</th>
-      <th scope="col">FTA</th>
-      <th scope="col">FTM</th>
-      <th scope="col">FT%</th>
-      <th scope="col">OREB</th>
-      <th scope="col">DREB</th>
-      <th scope="col">TREB</th>
-      <th scope="col">BLK</th>
-      <th scope="col">AST</th>
-      <th scope="col">STL</th>
-      <th scope="col">TOV</th>
-      <th scope="col">PF</th>
-      <th scope="col">+/-</th>
-      <th scope="col">EFF</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for player in players %}
-      <tr align="center">
-      <th scope="row">{{ player.jersey_numbers}}</th>
-      <td> </td>
-      <td>{{ player.player_name }}</td>
-      <td>{{ player.minutes }}</td>
-      <td>{{ player.points }}</td>
-      <td>{{ player.field_goal_attempts }}</td>
-      <td>{{ player.field_goal_made }}</td>
-      <td>{{ player.fg_percent }}</td>
-      <td>{{ player.point_3_attempts }}</td>
-      <td>{{ player.point_3_made }}</td>
-      <td>{{ player.point_3_percent }}</td>
-      <td>{{ player.point_2_attempts }}</td>
-      <td>{{ player.point_2_made }}</td>
-      <td>{{ player.point_2_percent }}</td>
-      <td>{{ player.ft_attempts }}</td>
-      <td>{{ player.ft_made }}</td>
-      <td>{{ player.ft_percent }}</td>
-      <td>{{ player.offensive_rebs }}</td>
-      <td>{{ player.defensive_rebs }}</td>
-      <td>{{ player.total_rebounds }}</td>
-      <td>{{ player.blocks }}</td>
-      <td>{{ player.assists }}</td>
-      <td>{{ player.steals }}</td>
-      <td>{{ player.turnovers }}</td>
-      <td>{{ player.personal_fouls }}</td>
-      <td>{{ player.plus_minus }}</td>
-      <td>{{ player.efficiency }}</td>
-    </tr>
 
-  {% endfor %}
-  </tbody>
-</table>
 
+<br>
+<div class="container-fluid" style="padding:20px;">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 50vh; padding:20px;">
+                <div class="container-sm" style="width: auto; overflow-x:auto; ">
+
+                       <div class="row d-flex flex-wrap" style="margin-bottom: 10px; color: white; height: 50px; position: relative;">
+
+                           <div class="col-12 col-md-8 d-flex align-items-center justify-content-left" >
+                                <div class="team-name" style="text-align: left; margin-top: 10px; color: black;">
+                                    <img src="{{ home_team.team_logo.url }}" style="border-radius: 5%;" width="50" height="40">
+                                    <h2>{{ home_team }}</h2>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex align-items-center justify-content-end">
+
+                                <button type="button" id="toggle-button" class="btn btn-info btn-rounded"  style="margin-right: 5px;">Legend</button>
+                                <!-- Toggle Legend -->
+                                <div id="legend_container" class="container-legend" >
+                                    <dl>
+                                      <dt class="dt-bold">#: <span class="dd-light">Jersey Numbers</span></dt>
+                                      <dt class="dt-bold">MIN: <span class="dd-light">Minutes played</span></dt>
+                                      <dt class="dt-bold">PTS: <span class="dd-light">Points Made</span></dt>
+                                      <dt class="dt-bold">AST: <span class="dd-light">Assists</span></dt>
+                                      <dt class="dt-bold">BLK: <span class="dd-light">Blocks</span></dt>
+                                      <dt class="dt-bold">+/-: <span class="dd-light">Point differential of the score while player on the court</span></dt>
+                                      <dt class="dt-bold">EFF: <span class="dd-light">Effiency</span></dt>
+                                      <dt class="dt-bold">FGA: <span class="dd-light">Field Goal Attempted</span></dt>
+                                      <dt class="dt-bold">FGM: <span class="dd-light">Field Goal Made</span></dt>
+                                      <dt class="dt-bold">FG%: <span class="dd-light">Field Goal Percentage</span></dt>
+                                      <dt class="dt-bold">3PA: <span class="dd-light">3 Points Attempted</span></dt>
+                                      <dt class="dt-bold">3PM: <span class="dd-light">3 Points Made</span></dt>
+                                      <dt class="dt-bold">3P%: <span class="dd-light">3 Points Percentage</span></dt>
+                                      <dt class="dt-bold">2PA: <span class="dd-light">2 Points Attempted</span></dt>
+                                      <dt class="dt-bold">2PM: <span class="dd-light">2 Points Made</span></dt>
+                                      <dt class="dt-bold">2P%: <span class="dd-light">2 Points Percentage</span></dt>
+                                      <dt class="dt-bold">FTA: <span class="dd-light">Free-throw Attempted</span></dt>
+                                      <dt class="dt-bold">FTM: <span class="dd-light">Free-throw Made</span></dt>
+                                      <dt class="dt-bold">FT%: <span class="dd-light">Free-throw Percentage</span></dt>
+                                      <dt class="dt-bold">OREB: <span class="dd-light">Offensive Rebounds</span></dt>
+                                      <dt class="dt-bold">DREB: <span class="dd-light">Defensive Rebounds</span></dt>
+                                      <dt class="dt-bold">TREB: <span class="dd-light">Total Rebounds</span></dt>
+                                      <dt class="dt-bold">TOV: <span class="dd-light">Turnovers</span></dt>
+                                      <dt class="dt-bold">PF: <span class="dd-light">Personal Fouls</span></dt>
+                                    </dl>
+                                </div>
+                                <!-- Toggle Legend End -->
+                            </div>
+                       </div>
+
+                      <!-- Home Table-->
+                    <div id="table_1"   style="overflow-x:auto;">
+                        <table id="table1" class="table table-striped" border="1" style="padding: 10px; border-radius: 10px;">
+                            <thead class="table-danger" style="background-color: #04AA6D; ">
+                                <tr align="center">
+                                  <th scope="col" >#</th>
+                                  <th scope="col" class="fixed-col"></th>
+                                  <th scope="col" class="fixed-col">PLAYERS</th>
+                                  <th class="bg-primary" scope="col">MIN</th>
+                                  <th class="table-primary" scope="col">PTS</th>
+                                  <th class="table-primary" scope="col">FGA-FGM</th>
+                                  <th scope="col">FGM</th>
+                                  <th scope="col">FG%</th>
+                                  <th scope="col">3PA</th>
+                                  <th scope="col">3PM</th>
+                                  <th scope="col">3P%</th>
+                                  <th scope="col">2PA</th>
+                                  <th scope="col">2PM</th>
+                                  <th scope="col">2P%</th>
+                                  <th scope="col">FTA</th>
+                                  <th scope="col">FTM</th>
+                                  <th scope="col">FT%</th>
+                                  <th scope="col">OREB</th>
+                                  <th scope="col">DREB</th>
+                                  <th scope="col">TREB</th>
+                                  <th scope="col">BLK</th>
+                                  <th scope="col">AST</th>
+                                  <th scope="col">STL</th>
+                                  <th scope="col">TOV</th>
+                                  <th scope="col">PF</th>
+                                  <th scope="col">+/-</th>
+                                  <th scope="col">EFF</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for player in home_team_players %}
+                                    <tr align="center">
+                                        <th scope="row">{{ player.player_name.jersey_numbers }}</th>
+
+                                          <td class="fixed-col" ><img src="{{ player.player_name.player_image.url }}" alt="{{ player.player_name }}" style="border-radius: 50%;" width="25" height="25"></td>
+                                          <td  class="fixed-col">{{ player.player_name }}</td>
+                                          <td style=" font-size: small; font-weight: bold;">{{ player.minutes }}</td>
+                                          <td>{{ player.points }}</td>
+                                          <td>{{ player.field_goal_attempts }}-{{ player.field_goal_made }}</td>
+                                          <td>{{ player.field_goal_made }}</td>
+                                          <td>{{ player.fg_percent }}</td>
+                                          <td>{{ player.point_3_attempts }}</td>
+                                          <td>{{ player.point_3_made }}</td>
+                                          <td>{{ player.point_3_percent }}</td>
+                                          <td>{{ player.point_2_attempts }}</td>
+                                          <td>{{ player.point_2_made }}</td>
+                                          <td>{{ player.point_2_percent }}</td>
+                                          <td>{{ player.ft_attempts }}</td>
+                                          <td>{{ player.ft_made }}</td>
+                                          <td>{{ player.ft_percent }}</td>
+                                          <td>{{ player.offensive_rebs }}</td>
+                                          <td>{{ player.defensive_rebs }}</td>
+                                          <td>{{ player.total_rebounds }}</td>
+                                          <td>{{ player.blocks }}</td>
+                                          <td>{{ player.assists }}</td>
+                                          <td>{{ player.steals }}</td>
+                                          <td>{{ player.turnovers }}</td>
+                                          <td>{{ player.personal_fouls }}</td>
+                                          <td>{{ player.plus_minus }}</td>
+                                          <td>{{ player.efficiency }}</td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                  <tr align="center" style="font-weight: bold;">
+                                      <th scope="row"> Totals </th>
+                                          <td class="fixed-col" ><img src="{{ home_team.team_logo.url }}" alt="" style="border-radius: 50%;" width="25" height="25"></td>
+                                          <td  class="fixed-col">{{ home_team }}</td>
+                                          <td style=" font-size: small; font-weight: bold;">200</td>
+                                          <td>{{ home_totals.points }}</td>
+                                          <td>{{ home_totals.field_goal_attempts }}-{{ home_totals.field_goal_made }}</td>
+                                          <td>{{ home_totals.field_goal_made }}</td>
+                                          <td>{{ home_totals.fg_percent|floatformat:2 }}%</td>
+                                          <td>{{ home_totals.point_3_attempts }}</td>
+                                          <td>{{ home_totals.point_3_made }}</td>
+                                          <td>{{ home_totals.point_3_percent|floatformat:2 }}%</td>
+                                          <td>{{ home_totals.point_2_attempts }}</td>
+                                          <td>{{ home_totals.point_2_made }}</td>
+                                          <td>{{ home_totals.point_2_percent|floatformat:2 }}%</td>
+                                          <td>{{ home_totals.ft_attempts }}</td>
+                                          <td>{{ home_totals.ft_made }}</td>
+                                          <td>{{ home_totals.ft_percent|floatformat:2 }}%</td>
+                                          <td>{{ home_totals.offensive_rebs }}</td>
+                                          <td>{{ home_totals.defensive_rebs }}</td>
+                                          <td>{{ home_totals.total_rebounds }}</td>
+                                          <td>{{ home_totals.blocks }}</td>
+                                          <td>{{ home_totals.assists }}</td>
+                                          <td>{{ home_totals.steals }}</td>
+                                          <td>{{ home_totals.turnovers }}</td>
+                                          <td>{{ home_totals.personal_fouls }}</td>
+                                          <td>{{ home_totals.plus_minus }}</td>
+                                          <td>{{ home_totals.efficiency }}</td>
+                                  </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!--Table 2 -->
+             <div class="d-flex justify-content-center align-items-center" style="min-height: 50vh; padding:20px;">
+                    <div class="container-sm" style="width: auto; overflow-x:auto;">
+                        <div class="row d-flex flex-wrap" style="margin-bottom: 10px; color: white; height: 50px; position: relative;">
+                            <div class="col-12 col-md-8 d-flex align-items-center justify-content-left" style="">
+                                <div class="team-name" style="text-align: left; margin-top: 10px; color: black;">
+                                    <img src="{{ away_team.team_logo.url }}" style="border-radius: 5%;" width="50" height="40">
+                                    <h2>{{ away_team }}</h2>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex align-items-center justify-content-end" style="">
+                                <button id="away_toggle_button" style="margin-right: 5px;">Legend</button>
+                                <div id="away_legend_container" class="container-legend">
+                                    <dl>
+                                      <dt class="dt-bold">#: <span class="dd-light">Jersey Numbers</span></dt>
+                                      <dt class="dt-bold">MIN: <span class="dd-light">Minutes played</span></dt>
+                                      <dt class="dt-bold">PTS: <span class="dd-light">Points Made</span></dt>
+                                      <dt class="dt-bold">AST: <span class="dd-light">Assists</span></dt>
+                                      <dt class="dt-bold">BLK: <span class="dd-light">Blocks</span></dt>
+                                      <dt class="dt-bold">+/-: <span class="dd-light">Point differential of the score while player on the court</span></dt>
+                                      <dt class="dt-bold">EFF: <span class="dd-light">Effiency</span></dt>
+                                      <dt class="dt-bold">FGA: <span class="dd-light">Field Goal Attempted</span></dt>
+                                      <dt class="dt-bold">FGM: <span class="dd-light">Field Goal Made</span></dt>
+                                      <dt class="dt-bold">FG%: <span class="dd-light">Field Goal Percentage</span></dt>
+                                      <dt class="dt-bold">3PA: <span class="dd-light">3 Points Attempted</span></dt>
+                                      <dt class="dt-bold">3PM: <span class="dd-light">3 Points Made</span></dt>
+                                      <dt class="dt-bold">3P%: <span class="dd-light">3 Points Percentage</span></dt>
+                                      <dt class="dt-bold">2PA: <span class="dd-light">2 Points Attempted</span></dt>
+                                      <dt class="dt-bold">2PM: <span class="dd-light">2 Points Made</span></dt>
+                                      <dt class="dt-bold">2P%: <span class="dd-light">2 Points Percentage</span></dt>
+                                      <dt class="dt-bold">FTA: <span class="dd-light">Free-throw Attempted</span></dt>
+                                      <dt class="dt-bold">FTM: <span class="dd-light">Free-throw Made</span></dt>
+                                      <dt class="dt-bold">FT%: <span class="dd-light">Free-throw Percentage</span></dt>
+                                      <dt class="dt-bold">OREB: <span class="dd-light">Offensive Rebounds</span></dt>
+                                      <dt class="dt-bold">DREB: <span class="dd-light">Defensive Rebounds</span></dt>
+                                      <dt class="dt-bold">TREB: <span class="dd-light">Total Rebounds</span></dt>
+                                      <dt class="dt-bold">TOV: <span class="dd-light">Turnovers</span></dt>
+                                      <dt class="dt-bold">PF: <span class="dd-light">Personal Fouls</span></dt>
+                                    </dl>
+                                </div>
+                                <!-- Toggle Legend End -->
+                            </div>
+                       </div>
+
+
+                    <div id="table_1" style="overflow-x:auto;">
+                        <table id="table1" class="table table-striped"  border="1" style="padding: 10px; border-radius: 10px;">
+                            <thead style="background-color: #04AA6D ">
+                                <tr align="center">
+                                  <th scope="col">#</th>
+                                  <th scope="col" class="fixed-col"> </th>
+                                  <th scope="col" class="fixed-col">PLAYERS</th>
+                                  <th scope="col">MIN</th>
+                                  <th scope="col">PTS</th>
+                                  <th scope="col">FGA</th>
+                                  <th scope="col">FGM</th>
+                                  <th scope="col">FG%</th>
+                                  <th scope="col">3PA</th>
+                                  <th scope="col">3PM</th>
+                                  <th scope="col">3P%</th>
+                                  <th scope="col">2PA</th>
+                                  <th scope="col">2PM</th>
+                                  <th scope="col">2P%</th>
+                                  <th scope="col">FTA</th>
+                                  <th scope="col">FTM</th>
+                                  <th scope="col">FT%</th>
+                                  <th scope="col">OREB</th>
+                                  <th scope="col">DREB</th>
+                                  <th scope="col">TREB</th>
+                                  <th scope="col">BLK</th>
+                                  <th scope="col">AST</th>
+                                  <th scope="col">STL</th>
+                                  <th scope="col">TOV</th>
+                                  <th scope="col">PF</th>
+                                  <th scope="col">+/-</th>
+                                  <th scope="col">EFF</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for player in away_team_players %}
+                                <tr align="center">
+                                    <th scope="row" >{{ player.player_name.jersey_numbers}}</th>
+
+                                    <td class="fixed-col"><img src="{{ player.player_name.player_image.url }}" alt="{{ player.player_name }}" style="border-radius: 50%;" width="20" height="20"></td>
+                                    <td class="fixed-col">{{ player.player_name }}</td>
+                                    <td>{{ player.minutes }}</td>
+                                    <td>{{ player.points }}</td>
+                                    <td>{{ player.field_goal_attempts }}</td>
+                                    <td>{{ player.field_goal_made }}</td>
+                                    <td>{{ player.fg_percent }}</td>
+                                    <td>{{ player.point_3_attempts }}</td>
+                                    <td>{{ player.point_3_made }}</td>
+                                    <td>{{ player.point_3_percent }}</td>
+                                    <td>{{ player.point_2_attempts }}</td>
+                                    <td>{{ player.point_2_made }}</td>
+                                    <td>{{ player.point_2_percent }}</td>
+                                    <td>{{ player.ft_attempts }}</td>
+                                    <td>{{ player.ft_made }}</td>
+                                    <td>{{ player.ft_percent }}</td>
+                                    <td>{{ player.offensive_rebs }}</td>
+                                    <td>{{ player.defensive_rebs }}</td>
+                                    <td>{{ player.total_rebounds }}</td>
+                                    <td>{{ player.blocks }}</td>
+                                    <td>{{ player.assists }}</td>
+                                    <td>{{ player.steals }}</td>
+                                    <td>{{ player.turnovers }}</td>
+                                    <td>{{ player.personal_fouls }}</td>
+                                    <td>{{ player.plus_minus }}</td>
+                                    <td>{{ player.efficiency }}</td>
+                                </tr>
+
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+</div>
+
+<!-- Custom script for this template -->
 
 
 {% endblock %}
+
